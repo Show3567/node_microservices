@@ -1,0 +1,13 @@
+/gateway/node_modules
+
+/config/node_modules
+
+/details/node_modules
+
+/common/node_modules
+
+/discovery/node_modules
+
+/auth/node_modules
+
+/template/node_modules
