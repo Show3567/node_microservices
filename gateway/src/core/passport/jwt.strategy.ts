@@ -3,54 +3,38 @@ import {
 	ExtractJwt,
 	StrategyOptionsWithoutRequest,
 } from "passport-jwt";
-import { Repository } from "typeorm";
 import "../env.config";
+import { selectSecret } from "../../cryptography/selectSecret";
+import { Algorithm } from "jsonwebtoken";
 
-import { User } from "../entities/user.entity";
-import { AppDataSource } from "../db/typeorm.config";
+const { secret, algorithm } = selectSecret();
 
-const options_ignaoreExpire: StrategyOptionsWithoutRequest = {
+const options_ig_exp: StrategyOptionsWithoutRequest = {
 	// * ~~~~~~~~~~~~~~~~~~ "Authentication": "Bearer <token>"
 	jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-	secretOrKey: process.env.JWT_SECRET || "", // publicKey
-	algorithms: ["HS256"],
+	secretOrKey: secret as string | Buffer,
+	algorithms: [algorithm as Algorithm],
 	ignoreExpiration: true,
-	// issuer: 'enter issuer here',
-	// audience: 'enter audience here',
-	// passReqToCallback: false,
 };
-const options_expire: StrategyOptionsWithoutRequest = {
+const options_exp: StrategyOptionsWithoutRequest = {
 	jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-	secretOrKey: process.env.JWT_SECRET || "", // publicKey
-	algorithms: ["HS256"],
+	secretOrKey: secret as string | Buffer,
+	algorithms: [algorithm as Algorithm],
 	ignoreExpiration: false,
 };
 
 const strategyCreator = (options: StrategyOptionsWithoutRequest) => {
 	return new JwtStrategy(options, async (payload, done) => {
-		try {
-			const userRepository: Repository<User> =
-				AppDataSource.getRepository(User);
-			const user = await userRepository.findOne({
-				where: { email: payload.email },
-			});
-			if (user) {
-				return done(null, user);
-			} else {
-				return done(null, false, {
-					message: "Incorrect username or password.",
-				});
-			}
-		} catch (error) {
-			return done(error, false);
+		if (payload) {
+			const user = { ...payload };
+			return done(null, user);
+		} else {
+			return done(null, false, { message: "Invalid token." });
 		}
 	});
 };
 
 export const useJwtStrategy = (passport: any) => {
-	passport.use(
-		"jwt_ign_exptime",
-		strategyCreator(options_ignaoreExpire)
-	);
-	passport.use("jwt", strategyCreator(options_expire));
+	passport.use("jwt_ig_exp", strategyCreator(options_ig_exp));
+	passport.use("jwt", strategyCreator(options_exp));
 };

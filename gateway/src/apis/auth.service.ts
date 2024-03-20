@@ -1,26 +1,16 @@
 import { RequestHandler } from "express";
-import jwt, { JwtPayload } from "jsonwebtoken";
-import { ObjectId } from "typeorm";
 import "../core/env.config";
-import { User } from "../core/entities/user.entity";
 import axios from "axios";
-import { AppDataSource } from "../core/db/typeorm.config";
-import {
-	genPassword,
-	validPassword,
-} from "../core/passport/passport-util";
 import logger, { loggerErr, loggerInfo } from "../core/logger.config";
 import { UserRole } from "../core/interfaces/user-role.enum";
 import { CheckEmailDto } from "./dto/check-email.dto";
-import { log } from "console";
 
 const AuthServerPath = process.env.AUTH_SERVER;
 // * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ API;
 // & ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ signin;
 export const signIn: RequestHandler = async (req, res) => {
-	const { email, password } = req.body;
 	const result = await axios
-		.post(`${AuthServerPath}/api/v1/auth/signin`, { email, password })
+		.post(`${AuthServerPath}/api/v1/auth/signin`, req.body)
 		.then((ele) => ele.data);
 
 	res.status(201).json(result);
@@ -28,11 +18,10 @@ export const signIn: RequestHandler = async (req, res) => {
 
 // & ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ signup;
 export const signUp: RequestHandler = async (req, res) => {
-	const result = await axios.post(
-		`${AuthServerPath}/api/v1/signup`,
-		req.body
-	);
-	res.status(201).json(result.data);
+	const result = await axios
+		.post(`${AuthServerPath}/api/v1/auth/signup`, req.body)
+		.then((ele) => ele.data);
+	res.status(201).json(result);
 };
 
 // // & ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ updateUser;

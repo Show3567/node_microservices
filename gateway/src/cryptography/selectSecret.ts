@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import "../core/env.config";
+import "./core/env.config";
 
 const fileExistsInFolder = (fileName: string) => {
 	const filePath = path.join(__dirname, fileName);
@@ -8,12 +8,12 @@ const fileExistsInFolder = (fileName: string) => {
 };
 
 export const selectSecret = () => {
-	const fileName = "id_rsa_priv.pem";
+	const fileName = "id_rsa_pub.pem";
 	if (fileExistsInFolder(fileName)) {
 		return {
 			algorithm: "RS256",
 			secret: fs.readFileSync(
-				path.join(__dirname, "id_rsa_priv.pem"),
+				path.join(__dirname, fileName),
 				"utf-8"
 			),
 		};
