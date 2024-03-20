@@ -1,11 +1,8 @@
 import express from "express";
-import passport from "passport";
-
 import { CheckEmailDto } from "./dto/check-email.dto";
 import { SignInCredentialsDto } from "./dto/signin.dto";
 import { SignUpCredentialsDto } from "./dto/signup.dto";
 import { UpdateCredentialDto } from "./dto/update-user.dto";
-import { RefreshTokenDto } from "./dto/refresh-token.dto";
 
 import {
 	checkEmail,

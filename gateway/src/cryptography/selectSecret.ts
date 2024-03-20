@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import "./core/env.config";
+import "../core/env.config";
 
 const fileExistsInFolder = (fileName: string) => {
 	const filePath = path.join(__dirname, fileName);
