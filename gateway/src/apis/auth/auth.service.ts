@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import "../core/env.config";
+import "../../core/env.config";
 import axios from "axios";
 
 const AuthServerPath = process.env.AUTH_SERVER;

@@ -13,7 +13,7 @@ import {
 	signUp,
 	updateUser,
 } from "./auth.service";
-import { dtoCheck } from "../core/middleware/auth.middleware";
+import { dtoCheck } from "../../core/middleware/auth.middleware";
 
 const userRouters = express.Router();
 

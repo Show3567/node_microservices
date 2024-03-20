@@ -4,7 +4,7 @@ import {
 	IsOptional,
 	IsString,
 } from "class-validator";
-import { UserRole } from "../../core/interfaces/user-role.enum";
+import { UserRole } from "../../../core/interfaces/user-role.enum";
 
 export class RefreshTokenDto {
 	@IsString()

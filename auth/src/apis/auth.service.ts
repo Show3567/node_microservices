@@ -10,7 +10,6 @@ import {
 } from "../core/passport/passport-util";
 import logger, { loggerErr, loggerInfo } from "../core/logger.config";
 import { UserRole } from "../core/interfaces/user-role.enum";
-import { CheckEmailDto } from "./dto/check-email.dto";
 import { selectSecret } from "../cryptography/selectSecret";
 
 const userRepo = AppDataSource.getRepository(User);
@@ -178,8 +177,9 @@ export const refreshToken: RequestHandler = async (req, res) => {
 
 // & ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ checkEmail;
 export const checkEmail: RequestHandler = async function (req, res) {
+	const { email } = req.body;
 	const user = await userRepo.findOne({
-		where: { email: (req.body as CheckEmailDto).email },
+		where: { email },
 	});
 	if (user) {
 		logger.info(loggerInfo("checkEmail", 200, { hasUser: true }));

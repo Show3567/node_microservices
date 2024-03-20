@@ -2,7 +2,7 @@ import express, { Express } from "express";
 import cors from "cors";
 import { errorHandler } from "./core/errors/errorHandler";
 import "./core/env.config";
-import userRouters from "./apis/router";
+import userRouters from "./apis/auth/router";
 import { authConfig } from "./core/auth.config";
 
 (() => {

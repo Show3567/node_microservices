@@ -9,13 +9,6 @@ import { Algorithm } from "jsonwebtoken";
 
 const { secret, algorithm } = selectSecret("pub");
 
-const options_ig_exp: StrategyOptionsWithoutRequest = {
-	// * ~~~~~~~~~~~~~~~~~~ "Authentication": "Bearer <token>"
-	jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-	secretOrKey: secret as string | Buffer,
-	algorithms: [algorithm as Algorithm],
-	ignoreExpiration: true,
-};
 const options_exp: StrategyOptionsWithoutRequest = {
 	jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
 	secretOrKey: secret as string | Buffer,
@@ -35,6 +28,5 @@ const strategyCreator = (options: StrategyOptionsWithoutRequest) => {
 };
 
 export const useJwtStrategy = (passport: any) => {
-	passport.use("jwt_ig_exp", strategyCreator(options_ig_exp));
 	passport.use("jwt", strategyCreator(options_exp));
 };
