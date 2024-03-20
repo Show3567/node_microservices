@@ -22,7 +22,7 @@ const createToken = function (user: User) {
 		username: user.username,
 		email: user.email,
 	};
-	const { secret, algorithm } = selectSecret();
+	const { secret, algorithm } = selectSecret("priv");
 	const accessToken: string = jwt.sign(payload, secret as Secret, {
 		expiresIn: "1d",
 		algorithm: algorithm as Algorithm,
