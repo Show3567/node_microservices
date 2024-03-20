@@ -22,17 +22,8 @@ userRouters
 	.route("/users")
 	.get(passport.authenticate("jwt", { session: false }), getUsers);
 
-userRouters.route("/signin").post(
-	dtoCheck(SignInCredentialsDto, (errors) => {
-		return errors.map((error: any) => {
-			if (error.target && error.target.password) {
-				delete error.target.password;
-			}
-			return error;
-		});
-	}),
-	signIn
-);
+userRouters.route("/signin").post(signIn);
+
 userRouters
 	.route("/signup")
 	.post(dtoCheck(SignUpCredentialsDto), signUp);

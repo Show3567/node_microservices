@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import jwt, { JwtPayload } from "jsonwebtoken";
+import jwt, { Algorithm, JwtPayload, Secret } from "jsonwebtoken";
 import { ObjectId } from "typeorm";
 import "../core/env.config";
 import { User } from "../core/entities/user.entity";
@@ -11,6 +11,7 @@ import {
 import logger, { loggerErr, loggerInfo } from "../core/logger.config";
 import { UserRole } from "../core/interfaces/user-role.enum";
 import { CheckEmailDto } from "./dto/check-email.dto";
+import { selectSecret } from "../cryptography/selectSecret";
 
 const userRepo = AppDataSource.getRepository(User);
 
@@ -21,11 +22,11 @@ const createToken = function (user: User) {
 		username: user.username,
 		email: user.email,
 	};
-	const accessToken: string = jwt.sign(
-		payload,
-		process.env.JWT_SECRET || "", // privateKey
-		{ expiresIn: "1d", algorithm: "HS256" }
-	);
+	const { secret, algorithm } = selectSecret();
+	const accessToken: string = jwt.sign(payload, secret as Secret, {
+		expiresIn: "1d",
+		algorithm: algorithm as Algorithm,
+	});
 	return `Bearer ${accessToken}`;
 };
 

@@ -1,17 +1,18 @@
 import express, { Express } from "express";
+import cors from "cors";
+import { errorHandler } from "./core/errors/errorHandler";
 import "./core/env.config";
+import userRouters from "./apis/router";
 
 (() => {
 	const app: Express = express();
 	const port = process.env.PORT || 4231;
 
 	app.use(express.json());
+	app.use(cors());
 
-	app.get("/", (req, res) => {
-		res.status(200).json({
-			message: "Hello nodejs microservices!",
-		});
-	});
+	app.use("/api/v1/auth", userRouters);
+	app.use(errorHandler);
 
 	app.listen(port, () => {
 		console.log(
@@ -51,6 +52,10 @@ import "./core/env.config";
   & add passport;
   $ npm install passport passport-jwt jsonwebtoken
   $ npm install @types/passport @types/passport-jwt @types/jsonwebtoken --save-dev
+
+  & add types/bcrypt;
+  $ npm i bcrypt
+  $ npm i @types/bcrypt --save-dev
 
   & add class-validator;
   $ npm install class-validator class-transformer reflect-metadata
