@@ -3,10 +3,12 @@ import cors from "cors";
 import { errorHandler } from "./core/errors/errorHandler";
 import "./core/env.config";
 import userRouters from "./apis/router";
+import { authConfig } from "./core/auth.config";
 
 (() => {
 	const app: Express = express();
 	const port = process.env.PORT || 4231;
+	const auth = authConfig(app);
 
 	app.use(express.json());
 	app.use(cors());

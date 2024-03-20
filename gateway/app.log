@@ -1,0 +1,7 @@
+{"level":"error","message":{"err":[{"children":[],"constraints":{"isString":"id must be a string"},"property":"id","target":{}},{"children":[],"constraints":{"isString":"username must be a string"},"property":"username","target":{}},{"children":[],"constraints":{"isEmail":"email must be an email","isString":"email must be a string"},"property":"email","target":{}}],"errMsg":"","method":"dtoCheck","status":400},"timestamp":"2024-03-20T15:12:09.569Z"}
+{"level":"error","message":{"err":{},"errMsg":"Internal Server Error","method":"errorHandler","status":500},"timestamp":"2024-03-20T15:12:09.572Z"}
+{"level":"error","message":{"err":{},"errMsg":"Internal Server Error","method":"errorHandler","status":500},"timestamp":"2024-03-20T15:12:53.406Z"}
+{"level":"error","message":{"err":{},"errMsg":"Internal Server Error","method":"errorHandler","status":500},"timestamp":"2024-03-20T15:15:43.686Z"}
+{"level":"error","message":{"err":{},"errMsg":"Internal Server Error","method":"errorHandler","status":500},"timestamp":"2024-03-20T15:15:51.873Z"}
+{"level":"error","message":{"err":{},"errMsg":"Internal Server Error","method":"errorHandler","status":500},"timestamp":"2024-03-20T15:16:14.346Z"}
+{"level":"error","message":{"err":{},"errMsg":"Internal Server Error","method":"errorHandler","status":500},"timestamp":"2024-03-20T15:19:01.477Z"}

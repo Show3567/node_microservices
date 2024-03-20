@@ -19,9 +19,6 @@ const options_ignaoreExpire: StrategyOptionsWithoutRequest = {
 	secretOrKey: secret as string | Buffer,
 	algorithms: [algorithm as Algorithm],
 	ignoreExpiration: true,
-	// issuer: 'enter issuer here',
-	// audience: 'enter audience here',
-	// passReqToCallback: false,
 };
 const options_expire: StrategyOptionsWithoutRequest = {
 	jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -52,9 +49,6 @@ const strategyCreator = (options: StrategyOptionsWithoutRequest) => {
 };
 
 export const useJwtStrategy = (passport: any) => {
-	passport.use(
-		"jwt_ign_exptime",
-		strategyCreator(options_ignaoreExpire)
-	);
+	passport.use("jwt_ig_exp", strategyCreator(options_ignaoreExpire));
 	passport.use("jwt", strategyCreator(options_expire));
 };
