@@ -7,7 +7,7 @@ import "../env.config";
 import { selectSecret } from "../../cryptography/selectSecret";
 import { Algorithm } from "jsonwebtoken";
 
-const { secret, algorithm } = selectSecret();
+const { secret, algorithm } = selectSecret("pub");
 
 const options_ig_exp: StrategyOptionsWithoutRequest = {
 	// * ~~~~~~~~~~~~~~~~~~ "Authentication": "Bearer <token>"
