@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 import axios from "axios";
-import "../core/evnConfig";
+import "../core/env.config";
 import logger, { loggerErr, loggerInfo } from "../core/logger.config";
 
 const tmdbBaseUrl = process.env.TMDB_BASE_URL;
@@ -10,16 +10,20 @@ const tmdb_key = process.env.TMDB_KEY;
 export const movieGetReqConvert = (PATH: string): RequestHandler => {
 	return async (req, res) => {
 		const queryObj = { ...req.query } as { [key: string]: string };
+		// console.log(queryObj, tmdb_key);
 
 		const url = Object.entries(queryObj).reduce(
 			(acc, [key, value]) => `${acc}&${key}=${value}`,
 			`${tmdbBaseUrl}/${PATH}?api_key=${tmdb_key}`
 		);
 
+		console.log(queryObj, url);
+
 		const result = await axios.get(url).then((ele) => ele.data);
 
 		logger.info(loggerInfo(`getMovie/${PATH}`, 200));
 		res.status(200).json(result);
+		// res.status(200).json({ ok: "OK" });
 	};
 };
 

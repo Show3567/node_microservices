@@ -5,3 +5,11 @@
 {"level":"error","message":{"err":{},"errMsg":"Internal Server Error","method":"errorHandler","status":500},"timestamp":"2024-03-20T15:15:51.873Z"}
 {"level":"error","message":{"err":{},"errMsg":"Internal Server Error","method":"errorHandler","status":500},"timestamp":"2024-03-20T15:16:14.346Z"}
 {"level":"error","message":{"err":{},"errMsg":"Internal Server Error","method":"errorHandler","status":500},"timestamp":"2024-03-20T15:19:01.477Z"}
+{"level":"info","message":{"method":"getMovie/discover/movie","res":{},"status":200},"timestamp":"2024-03-20T23:36:50.205Z"}
+{"level":"info","message":{"method":"getMovie/discover/movie","res":{},"status":200},"timestamp":"2024-03-20T23:36:59.204Z"}
+{"level":"info","message":{"method":"getMovie/discover/movie","res":{},"status":200},"timestamp":"2024-03-20T23:38:25.249Z"}
+{"level":"info","message":{"method":"getMovie/discover/movie","res":{},"status":200},"timestamp":"2024-03-20T23:40:51.003Z"}
+{"level":"info","message":{"method":"getMovie/discover/movie","res":{},"status":200},"timestamp":"2024-03-20T23:42:18.950Z"}
+{"level":"info","message":{"method":"getMovie/discover/movie","res":{},"status":200},"timestamp":"2024-03-20T23:43:36.454Z"}
+{"level":"info","message":{"method":"getMovie/discover/movie","res":{},"status":200},"timestamp":"2024-03-20T23:43:50.388Z"}
+{"level":"info","message":{"method":"getMovie/discover/movie","res":{},"status":200},"timestamp":"2024-03-20T23:46:24.319Z"}
