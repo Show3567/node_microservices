@@ -8,12 +8,16 @@ import "../env.config";
 
 import { User } from "../entities/user.entity";
 import { AppDataSource } from "../db/typeorm.config";
+import { selectSecret } from "../../cryptography/selectSecret";
+import { Algorithm } from "jsonwebtoken";
+
+const { secret, algorithm } = selectSecret("pub");
 
 const options_ignaoreExpire: StrategyOptionsWithoutRequest = {
 	// * ~~~~~~~~~~~~~~~~~~ "Authentication": "Bearer <token>"
 	jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-	secretOrKey: process.env.JWT_SECRET || "", // publicKey
-	algorithms: ["HS256"],
+	secretOrKey: secret as string | Buffer,
+	algorithms: [algorithm as Algorithm],
 	ignoreExpiration: true,
 	// issuer: 'enter issuer here',
 	// audience: 'enter audience here',
@@ -21,8 +25,8 @@ const options_ignaoreExpire: StrategyOptionsWithoutRequest = {
 };
 const options_expire: StrategyOptionsWithoutRequest = {
 	jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-	secretOrKey: process.env.JWT_SECRET || "", // publicKey
-	algorithms: ["HS256"],
+	secretOrKey: secret as string | Buffer,
+	algorithms: [algorithm as Algorithm],
 	ignoreExpiration: false,
 };
 

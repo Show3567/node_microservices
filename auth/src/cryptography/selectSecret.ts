@@ -7,13 +7,13 @@ const fileExistsInFolder = (fileName: string) => {
 	return fs.existsSync(filePath);
 };
 
-export const selectSecret = () => {
-	const fileName = "id_rsa_priv.pem";
+export const selectSecret = (keyName: "priv" | "pub") => {
+	const fileName = `id_rsa_${keyName}.pem`;
 	if (fileExistsInFolder(fileName)) {
 		return {
 			algorithm: "RS256",
 			secret: fs.readFileSync(
-				path.join(__dirname, "id_rsa_priv.pem"),
+				path.join(__dirname, fileName),
 				"utf-8"
 			),
 		};
