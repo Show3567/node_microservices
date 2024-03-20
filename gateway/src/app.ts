@@ -4,6 +4,7 @@ import { errorHandler } from "./core/errors/errorHandler";
 import "./core/env.config";
 import userRouters from "./apis/auth/router";
 import { authConfig } from "./core/auth.config";
+import movieRouter from "./apis/movie/router";
 
 (() => {
 	const app: Express = express();
@@ -14,6 +15,7 @@ import { authConfig } from "./core/auth.config";
 	app.use(cors());
 
 	app.use("/api/v1/auth", userRouters);
+	app.use("/api/v1/", movieRouter);
 	app.use(errorHandler);
 
 	app.listen(port, () => {

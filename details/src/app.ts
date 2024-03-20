@@ -1,5 +1,8 @@
 import express, { Express } from "express";
 import "./core/env.config";
+import cors from "cors";
+import { errorHandler } from "./core/errors/errorHandler";
+import movieRouter from "./apis/router";
 
 (() => {
 	const app: Express = express();
@@ -7,11 +10,11 @@ import "./core/env.config";
 
 	app.use(express.json());
 
-	app.get("/", (req, res) => {
-		res.status(200).json({
-			message: "Hello nodejs microservices!",
-		});
-	});
+	app.use(cors());
+	app.use(express.json());
+
+	app.use("/api/v1", movieRouter);
+	app.use(errorHandler);
 
 	app.listen(port, () => {
 		console.log(
