@@ -13,3 +13,5 @@
 {"level":"info","message":{"method":"getMovie/discover/movie","res":{},"status":200},"timestamp":"2024-03-20T23:43:36.454Z"}
 {"level":"info","message":{"method":"getMovie/discover/movie","res":{},"status":200},"timestamp":"2024-03-20T23:43:50.388Z"}
 {"level":"info","message":{"method":"getMovie/discover/movie","res":{},"status":200},"timestamp":"2024-03-20T23:46:24.319Z"}
+{"level":"info","message":{"method":"getMovieById","res":{},"status":200},"timestamp":"2024-03-21T00:35:33.154Z"}
+{"level":"info","message":{"method":"getDetails/videos","res":{},"status":200},"timestamp":"2024-03-21T00:36:57.088Z"}

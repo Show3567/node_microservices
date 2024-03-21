@@ -1,1 +1,3 @@
 {"level":"info","message":{"method":"getMovie/discover/movie","res":{},"status":200},"timestamp":"2024-03-20T23:46:24.313Z"}
+{"level":"info","message":{"method":"getMovieById","res":{},"status":200},"timestamp":"2024-03-21T00:35:33.151Z"}
+{"level":"info","message":{"method":"getDetails/videos","res":{},"status":200},"timestamp":"2024-03-21T00:36:57.086Z"}
