@@ -1,0 +1,21 @@
+{
+	"JWT_SECRET": "C>WI(_k<KmJ5H][X1j43#Oo0EIMUIf=D~9-h{yvYTQ(E#3%Fiz?rd:kFHfCvn",
+	"MODB_URL": "mongodb+srv://antraAngular:jVoARhjqNU6GtZQG@cluster0.uqd3b.mongodb.net/auth",
+
+	"AUTH_SERVER": "http://localhost:4233",
+	"CONFIG_SERVER": "http://localhost:4229",
+	"DETAIL_SERVER": "http://localhost:4232",
+
+	"auth": {
+		"PORT": 4233
+	},
+	"gateway": {
+		"PORT": 4234
+	},
+	"detail": {
+		"PORT": 4232,
+		"TMDB_KEY": "ac7e1f44cec0dd6e260391374208b0cc",
+		"TMDB_BASE_URL": "https://api.themoviedb.org/3",
+		"TMDB_BASE_MOVIE_IMG": "https://image.tmdb.org/t/p"
+	}
+}

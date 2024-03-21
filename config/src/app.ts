@@ -1,17 +1,12 @@
 import express, { Express } from "express";
 import "./core/env.config";
+import "./apis/getdata";
 
 (() => {
 	const app: Express = express();
 	const port = process.env.PORT || 4231;
 
 	app.use(express.json());
-
-	app.get("/", (req, res) => {
-		res.status(200).json({
-			message: "Hello nodejs microservices!",
-		});
-	});
 
 	app.listen(port, () => {
 		console.log(
@@ -75,6 +70,9 @@ import "./core/env.config";
   & logger;
   $ npm install winston
   $ npm install @types/winston --save-dev
+
+  & create a config service and base config on a private github to centralize all config data; 
+  $ npm install express @types/express @octokit/rest
 
   & create docker file Dockerfile: my image name is movie-backend;
   $ docker build -t <your-image-name> .
