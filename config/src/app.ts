@@ -1,12 +1,19 @@
 import express, { Express } from "express";
 import "./core/env.config";
 import "./apis/getdata";
+import cors from "cors";
+import configRouter from "./apis/router";
+import { errorHandler } from "./core/errors/errorHandler";
 
 (() => {
 	const app: Express = express();
 	const port = process.env.PORT || 4231;
 
+	app.use(cors());
 	app.use(express.json());
+
+	app.use("/api/v1/config", configRouter);
+	app.use(errorHandler);
 
 	app.listen(port, () => {
 		console.log(
