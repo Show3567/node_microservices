@@ -1,5 +1,6 @@
 import { RequestHandler } from "express";
 import fs from "fs";
+import { homedir } from "os";
 import path from "path";
 
 const getConfigData = () => {
@@ -29,4 +30,11 @@ export const getConfig: RequestHandler = (req, res) => {
 	}
 };
 
-export const getKey: RequestHandler = (req, res) => {};
+export const getKey: RequestHandler = (req, res) => {
+	const { key } = req.params; // key: 'priv' | 'pub';
+	const filepath = path.join(
+		__dirname,
+		"../store",
+		`id_rsa_${key}.pem`
+	);
+};

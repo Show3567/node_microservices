@@ -5,6 +5,7 @@ import "./core/db/typeorm.config";
 import "./core/env.config";
 import userRouters from "./apis/router";
 import { authConfig } from "./core/auth.config";
+import "./config/getConfig";
 
 (() => {
 	const app: Express = express();
