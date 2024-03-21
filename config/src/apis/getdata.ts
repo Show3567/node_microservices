@@ -5,7 +5,7 @@ import "../core/env.config";
 
 const octokit = new Octokit({ auth: process.env.GIT_TOKEN });
 
-const fetchConfigFromGitHub = async (
+export const fetchConfigFromGitHub = async (
 	filePath: string
 ): Promise<any> => {
 	const response = await octokit.repos.getContent({
@@ -42,7 +42,7 @@ const getConfig = async (fileName: string) => {
 	}
 };
 
-const getFile = async (fileName: string) => {
+export const getFile = async (fileName: string) => {
 	try {
 		const fileContent = await fetchConfigFromGitHub(fileName);
 		createLocalFile(`./${fileName}`, fileContent);
@@ -51,8 +51,8 @@ const getFile = async (fileName: string) => {
 	}
 };
 
-(async () => {
-	await getConfig("config");
-	await getFile("id_rsa_priv.pem");
-	await getFile("id_rsa_pub.pem");
-})();
+// (async () => {
+// 	await getConfig("config");
+// 	await getFile("id_rsa_priv.pem");
+// 	await getFile("id_rsa_pub.pem");
+// })();
