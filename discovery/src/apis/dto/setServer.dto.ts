@@ -1,12 +1,12 @@
+import "reflect-metadata";
 import {
-	IsString,
-	IsUrl,
+	ArrayNotEmpty,
+	IsISO8601,
 	IsIn,
-	IsInt,
+	IsNumber,
+	IsString,
 	Min,
 	ValidateNested,
-	IsISO8601,
-	ArrayNotEmpty,
 } from "class-validator";
 import { Type } from "class-transformer";
 
@@ -19,26 +19,26 @@ class ServiceTimestamps {
 }
 
 export class ServiceInstance {
-	@IsUrl()
+	@IsString()
 	public endpoint: string;
 
 	@IsIn(["healthy", "unhealthy", "unknown"])
 	public healthStatus: "healthy" | "unhealthy" | "unknown";
 
-	@IsInt()
+	@IsNumber()
 	@Min(0)
 	public ttl: number;
 }
 
 export class ServiceInstanceDB {
 	@ArrayNotEmpty()
-	@IsUrl({}, { each: true })
+	@IsString({ each: true })
 	public endpoints: string[];
 
 	@IsIn(["healthy", "unhealthy", "unknown"])
 	public healthStatus: "healthy" | "unhealthy" | "unknown";
 
-	@IsInt()
+	@IsNumber()
 	@Min(0)
 	public ttl: number;
 
@@ -51,8 +51,7 @@ export class ServiceRegistryDTO {
 	@IsString()
 	key: string;
 
+	@ValidateNested()
 	@Type(() => ServiceInstance)
 	service: ServiceInstance;
 }
-
-ServiceInstanceDB;

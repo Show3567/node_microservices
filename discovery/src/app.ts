@@ -3,6 +3,7 @@ import "./core/env.config";
 import { connectRedis } from "./core/redis.config";
 import { discoveryService } from "./apis/discovery.service";
 import { discoveryRouter } from "./apis/router";
+import { errorHandler } from "./core/errors/errorHandler";
 
 (() => {
 	const app: Express = express();
@@ -12,6 +13,8 @@ import { discoveryRouter } from "./apis/router";
 
 	app.use(express.json());
 	app.use("/api/v1/discovery", discoveryRouter(service));
+
+	app.use(errorHandler);
 
 	app.listen(port, () => {
 		console.log(

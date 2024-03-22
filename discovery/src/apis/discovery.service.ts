@@ -12,11 +12,12 @@ export const discoveryService = (redisClient: Redis) => {
 			key,
 			service: { endpoint, healthStatus, ttl },
 		} = req.body;
+		const cachedData = await redisClient.get(key);
 		let obj: ServiceInstanceDB;
 
-		const cachedData = await redisClient.get(key);
 		if (cachedData) {
 			const data: ServiceInstanceDB = JSON.parse(cachedData);
+			console.log("~~~~~~~~~~~~", data);
 			obj = {
 				endpoints: addAdd(data.endpoints, endpoint),
 				healthStatus,
@@ -54,7 +55,21 @@ export const discoveryService = (redisClient: Redis) => {
 		}
 	};
 
+	const deleteKey: RequestHandler = async (req, res) => {
+		const key = req.params.key;
+		try {
+			const result = await redisClient.del(key);
+			if (result === 1) {
+				res.json(`Key ${key} deleted successfully.`);
+			} else {
+				res.json(`Key ${key} does not exist.`);
+			}
+		} catch (error) {
+			res.json({ message: `Error deleting key ${key}:`, err: error });
+		}
+	};
+
 	const checkAllData: RequestHandler = async (req, res) => {};
 
-	return { setServerAdd, getServerAdd };
+	return { setServerAdd, getServerAdd, deleteKey };
 };

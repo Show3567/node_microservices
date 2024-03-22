@@ -1,14 +1,17 @@
 import express, { RequestHandler } from "express";
 import { dtoCheck } from "../core/middleware/auth.middleware";
-import { SetServerDto } from "./dto/setServer.dto";
+import { ServiceRegistryDTO } from "./dto/setServer.dto";
 
 export const discoveryRouter = (service: {
 	[key: string]: RequestHandler;
 }) => {
 	const router = express.Router();
 
-	router.route("").post(dtoCheck(SetServerDto), service.setServerAdd);
-	router.route("/:key").get(service.getServerAdd);
+	router
+		.route("/set")
+		.post(dtoCheck(ServiceRegistryDTO), service.setServerAdd);
+	router.route("/get/:key").get(service.getServerAdd);
+	router.route("/delete/:key").delete(service.deleteKey);
 
 	return router;
 };
