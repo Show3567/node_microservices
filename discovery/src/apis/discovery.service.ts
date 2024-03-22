@@ -69,7 +69,20 @@ export const discoveryService = (redisClient: Redis) => {
 		}
 	};
 
-	const checkAllData: RequestHandler = async (req, res) => {};
+	const checkAllData: RequestHandler = async (req, res) => {
+		try {
+			const keys = await redisClient.keys("*"); // Get all keys in Redis
+			const data = await Promise.all(
+				keys.map((key) =>
+					redisClient.get(key).then((value) => ({ key, value }))
+				)
+			);
+			res.status(200).json(data);
+		} catch (error) {
+			console.error("Error fetching data from Redis:", error);
+			res.status(500).send("Error fetching data from Redis");
+		}
+	};
 
-	return { setServerAdd, getServerAdd, deleteKey };
+	return { setServerAdd, getServerAdd, deleteKey, checkAllData };
 };

@@ -12,6 +12,7 @@ export const discoveryRouter = (service: {
 		.post(dtoCheck(ServiceRegistryDTO), service.setServerAdd);
 	router.route("/get/:key").get(service.getServerAdd);
 	router.route("/delete/:key").delete(service.deleteKey);
+	router.route("/get-all").get(service.checkAllData);
 
 	return router;
 };
