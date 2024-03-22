@@ -5,9 +5,11 @@ import { errorHandler } from "./core/errors/errorHandler";
 import { getConfigFromServer } from "./config/getConfig";
 import { movieService } from "./apis/movie.service";
 import { movieRouter } from "./apis/router";
+import { setAddOnDiscovery } from "./core/set.discovery";
 
 (async () => {
 	await getConfigFromServer();
+	await setAddOnDiscovery();
 	const app: Express = express();
 	const port = process.env.PORT || 4231;
 

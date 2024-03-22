@@ -25,5 +25,7 @@ export const discoveryService = (redisClient: Redis) => {
 		}
 	};
 
+	const checkAllData: RequestHandler = async (req, res) => {};
+
 	return { setServerAdd, getServerAdd };
 };
