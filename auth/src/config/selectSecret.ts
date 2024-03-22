@@ -8,9 +8,8 @@ const fileExistsInFolder = (fileName: string) => {
 	return fs.existsSync(filePath);
 };
 
-const config = getConfigData();
-
 export const selectSecret = (keyName: "priv" | "pub") => {
+	const config = getConfigData();
 	const fileName = `id_rsa_${keyName}.pem`;
 	const hasfile = fileExistsInFolder(fileName);
 	const algorithm = hasfile ? "RS256" : "HS256";

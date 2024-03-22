@@ -5,8 +5,10 @@ import "./core/env.config";
 import userRouters from "./apis/auth/router";
 import { authConfig } from "./core/auth.config";
 import movieRouter from "./apis/movie/router";
+import { getConfigFromServer } from "./config/getConfig";
 
-(() => {
+(async () => {
+	await getConfigFromServer();
 	const app: Express = express();
 	const port = process.env.PORT || 4231;
 	const auth = authConfig(app);
