@@ -1,17 +1,17 @@
 import express, { Express } from "express";
 import "./core/env.config";
+import { connectRedis } from "./core/redis.config";
+import { discoveryService } from "./apis/discovery.service";
+import { discoveryRouter } from "./apis/router";
 
 (() => {
 	const app: Express = express();
 	const port = process.env.PORT || 4231;
+	const redisDB = connectRedis();
+	const service = discoveryService(redisDB);
 
 	app.use(express.json());
-
-	app.get("/", (req, res) => {
-		res.status(200).json({
-			message: "Hello nodejs microservices!",
-		});
-	});
+	app.use("/api/v1/discovery", discoveryRouter(service));
 
 	app.listen(port, () => {
 		console.log(
@@ -85,4 +85,12 @@ import "./core/env.config";
   $ docker stop <container-id-or-name>
   $ docker rm <container-id-or-name> // optional, this will remove the image;
   $ docker run -p 8800:3344 -d <your-image-name> // recreate the image;
+
+  & manage redis in terminal; start, info, stop
+  $ brew services start redis
+  $ brew services info redis
+  $ brew services stop redis 
+
+  & install redis on nodejs;
+  $ npm i ioredis
 */
