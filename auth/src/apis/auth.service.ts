@@ -9,7 +9,7 @@ import {
 } from "../core/passport/passport-util";
 import logger, { loggerErr, loggerInfo } from "../core/logger.config";
 import { UserRole } from "../core/interfaces/user-role.enum";
-import { selectSecret } from "../cryptography/selectSecret";
+import { selectSecret } from "../config/selectSecret";
 
 // * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ private function;
 const createToken = function (user: User) {

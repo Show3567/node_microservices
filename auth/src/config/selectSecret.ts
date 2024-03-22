@@ -1,11 +1,14 @@
 import fs from "fs";
 import path from "path";
 import "../core/env.config";
+import { getConfigData } from "./getConfig";
 
 const fileExistsInFolder = (fileName: string) => {
 	const filePath = path.join(__dirname, fileName);
 	return fs.existsSync(filePath);
 };
+
+const config = getConfigData();
 
 export const selectSecret = (keyName: "priv" | "pub") => {
 	const fileName = `id_rsa_${keyName}.pem`;
@@ -13,7 +16,7 @@ export const selectSecret = (keyName: "priv" | "pub") => {
 	const algorithm = hasfile ? "RS256" : "HS256";
 	const secret = hasfile
 		? fs.readFileSync(path.join(__dirname, fileName), "utf-8")
-		: process.env.JWT_SECRET;
+		: config.JWT_SECRET;
 
 	return { algorithm, secret };
 };

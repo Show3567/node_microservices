@@ -7,7 +7,7 @@ import { DataSource, Repository } from "typeorm";
 import "../env.config";
 
 import { User } from "../entities/user.entity";
-import { selectSecret } from "../../cryptography/selectSecret";
+import { selectSecret } from "../../config/selectSecret";
 import { Algorithm } from "jsonwebtoken";
 
 const { secret, algorithm } = selectSecret("pub");
