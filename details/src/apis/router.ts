@@ -1,21 +1,24 @@
-import express from "express";
-import {
-	getDetails,
-	getMovieById,
+import express, { RequestHandler } from "express";
+
+export const movieRouter = ({
 	movieGetReqConvert,
-} from "./movie.service";
+	getMovieById,
+	getDetails,
+}: {
+	[key: string]: any;
+}) => {
+	const router = express.Router();
 
-const movieRouter = express.Router();
+	router
+		.route("/discover/movie")
+		.get(movieGetReqConvert("discover/movie"));
+	router
+		.route("/search/movie")
+		.get(movieGetReqConvert("search/movie"));
+	router.route("/movie/:id").get(getMovieById);
+	router.route("/movie/:id/credits").get(getDetails("credits"));
+	router.route("/movie/:id/images").get(getDetails("images"));
+	router.route("/movie/:id/videos").get(getDetails("videos"));
 
-movieRouter
-	.route("/discover/movie")
-	.get(movieGetReqConvert("discover/movie"));
-movieRouter
-	.route("/search/movie")
-	.get(movieGetReqConvert("search/movie"));
-movieRouter.route("/movie/:id").get(getMovieById);
-movieRouter.route("/movie/:id/credits").get(getDetails("credits"));
-movieRouter.route("/movie/:id/images").get(getDetails("images"));
-movieRouter.route("/movie/:id/videos").get(getDetails("videos"));
-
-export default movieRouter;
+	return router;
+};

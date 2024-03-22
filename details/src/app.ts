@@ -2,9 +2,12 @@ import express, { Express } from "express";
 import "./core/env.config";
 import cors from "cors";
 import { errorHandler } from "./core/errors/errorHandler";
-import movieRouter from "./apis/router";
+import { getConfigFromServer } from "./config/getConfig";
+import { movieService } from "./apis/movie.service";
+import { movieRouter } from "./apis/router";
 
-(() => {
+(async () => {
+	await getConfigFromServer();
 	const app: Express = express();
 	const port = process.env.PORT || 4231;
 
@@ -13,7 +16,8 @@ import movieRouter from "./apis/router";
 	app.use(cors());
 	app.use(express.json());
 
-	app.use("/api/v1", movieRouter);
+	const service = movieService();
+	app.use("/api/v1", movieRouter(service));
 	app.use(errorHandler);
 
 	app.listen(port, () => {
