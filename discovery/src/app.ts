@@ -93,4 +93,7 @@ import { discoveryRouter } from "./apis/router";
 
   & install redis on nodejs;
   $ npm i ioredis
+
+  & add scheduler to check services health;
+  $ npm install node-schedule
 */

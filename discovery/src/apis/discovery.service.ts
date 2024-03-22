@@ -1,16 +1,45 @@
 import { RequestHandler } from "express";
 import { Redis } from "ioredis";
+import { ServiceInstanceDB } from "./dto/setServer.dto";
+
+const addAdd = (orgarr: string[], address: string) => {
+	return orgarr.includes(address) ? orgarr : [...orgarr, address];
+};
 
 export const discoveryService = (redisClient: Redis) => {
 	const setServerAdd: RequestHandler = async (req, res) => {
-		const { key, address } = req.body;
-		await redisClient.set(
+		const {
 			key,
-			JSON.stringify(address),
-			"EX",
-			3600 * 24
-		);
-		res.status(201).json({ [key]: address });
+			service: { endpoint, healthStatus, ttl },
+		} = req.body;
+		let obj: ServiceInstanceDB;
+
+		const cachedData = await redisClient.get(key);
+		if (cachedData) {
+			const data: ServiceInstanceDB = JSON.parse(cachedData);
+			obj = {
+				endpoints: addAdd(data.endpoints, endpoint),
+				healthStatus,
+				ttl,
+				timestamps: {
+					...data.timestamps,
+					updated: Date.now().toString(),
+				},
+			};
+		} else {
+			obj = {
+				endpoints: [endpoint],
+				healthStatus,
+				ttl,
+				timestamps: {
+					created: Date.now().toString(),
+					updated: Date.now().toString(),
+				},
+			};
+		}
+		await redisClient.set(key, JSON.stringify(obj), "EX", ttl);
+
+		res.status(201).json({ [key]: obj });
 	};
 
 	const getServerAdd: RequestHandler = async (req, res) => {
