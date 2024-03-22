@@ -3,19 +3,29 @@ import cors from "cors";
 import { errorHandler } from "./core/errors/errorHandler";
 import "./core/db/typeorm.config";
 import "./core/env.config";
-import userRouters from "./apis/router";
+import { userRouters } from "./apis/router";
 import { authConfig } from "./core/auth.config";
-import "./config/getConfig";
+import {
+	getConfigData,
+	getConfigFromServer,
+} from "./config/getConfig";
+import { initDBConnection } from "./core/db/typeorm.config";
+import authService from "./apis/auth.service";
 
-(() => {
+(async () => {
+	await getConfigFromServer();
+	console.log("configData: ", getConfigData());
+	const AppDataSource = initDBConnection(getConfigData());
+
 	const app: Express = express();
 	const port = process.env.PORT || 4231;
-	const auth = authConfig(app);
+	const auth = authConfig(app, AppDataSource);
 
 	app.use(cors());
 	app.use(express.json());
 
-	app.use("/api/v1/auth", userRouters);
+	const APIs = authService(AppDataSource);
+	app.use("/api/v1/auth", userRouters(APIs));
 	app.use(errorHandler);
 
 	app.listen(port, () => {
@@ -24,7 +34,6 @@ import "./config/getConfig";
 		);
 	});
 })();
-
 /* 
   & init project, install express;
   $ npm init

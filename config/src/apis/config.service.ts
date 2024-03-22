@@ -1,6 +1,5 @@
 import { RequestHandler } from "express";
 import fs from "fs";
-import { homedir } from "os";
 import path from "path";
 import { fetchConfigFromGitHub } from "./getdata";
 
@@ -36,11 +35,9 @@ export const getConfig: RequestHandler = async (req, res) => {
 	// }
 };
 
-export const getKey: RequestHandler = (req, res) => {
-	const { key } = req.params; // key: 'priv' | 'pub';
-	const filepath = path.join(
-		__dirname,
-		"../store",
-		`id_rsa_${key}.pem`
-	);
+export const getKey: RequestHandler = async (req, res) => {
+	const { key } = req.query; // key: 'priv' | 'pub';
+
+	const keyFile = await fetchConfigFromGitHub(`id_rsa_${key}.pem`);
+	res.send(keyFile);
 };

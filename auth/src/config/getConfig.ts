@@ -5,7 +5,6 @@ import "../core/env.config";
 
 const configList = ["JWT_SECRET", "MODB_URL"];
 const configServer = process.env.CONFIG_SERVER;
-console.log(`${configServer}/api/v1/config`);
 
 const downloadFile = async (url: string, fileName: string) => {
 	try {
@@ -15,9 +14,12 @@ const downloadFile = async (url: string, fileName: string) => {
 			responseType: "stream", // Important for handling the download of binary files
 		});
 
-		const writer = fs.createWriteStream(
-			path.join(__dirname, "./", `${fileName}.json`)
-		);
+		const filepath = path.join(__dirname, "./", fileName);
+		if (!fs.existsSync(path.dirname(filepath))) {
+			console.log(filepath);
+			fs.mkdirSync(path.dirname(filepath));
+		}
+		const writer = fs.createWriteStream(filepath);
 
 		response.data.pipe(writer);
 
@@ -39,7 +41,15 @@ const createLocalFile = (fileName: string, content: string): void => {
 	}
 	fs.writeFileSync(filePath, content, "utf8");
 };
+export const getConfigData = () => {
+	const rawData = fs.readFileSync(
+		path.join(__dirname, "./", "config.json"),
+		"utf8"
+	);
+	return JSON.parse(rawData);
+};
 
+// * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ get config;
 const getConfig = async () => {
 	try {
 		const result = await axios.post(`${configServer}/api/v1/config`, {
@@ -50,7 +60,14 @@ const getConfig = async () => {
 		console.error(error);
 	}
 };
+const getKey = async (key: "priv" | "pub") => {
+	const fileUrl = `${configServer}/api/v1/config?key=${key}`; // URL to your API endpoint
+	// const savePath = path.join(__dirname, );
+	await downloadFile(fileUrl, `id_rsa_${key}.pem`);
+};
 
-(() => {
-	getConfig();
-})();
+export const getConfigFromServer = async () => {
+	await getConfig();
+	await getKey("pub");
+	await getKey("priv");
+};

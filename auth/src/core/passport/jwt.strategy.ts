@@ -3,11 +3,10 @@ import {
 	ExtractJwt,
 	StrategyOptionsWithoutRequest,
 } from "passport-jwt";
-import { Repository } from "typeorm";
+import { DataSource, Repository } from "typeorm";
 import "../env.config";
 
 import { User } from "../entities/user.entity";
-import { AppDataSource } from "../db/typeorm.config";
 import { selectSecret } from "../../cryptography/selectSecret";
 import { Algorithm } from "jsonwebtoken";
 
@@ -27,7 +26,10 @@ const options_expire: StrategyOptionsWithoutRequest = {
 	ignoreExpiration: false,
 };
 
-const strategyCreator = (options: StrategyOptionsWithoutRequest) => {
+const strategyCreator = (
+	options: StrategyOptionsWithoutRequest,
+	AppDataSource: DataSource
+) => {
 	return new JwtStrategy(options, async (payload, done) => {
 		try {
 			const userRepository: Repository<User> =
@@ -48,7 +50,13 @@ const strategyCreator = (options: StrategyOptionsWithoutRequest) => {
 	});
 };
 
-export const useJwtStrategy = (passport: any) => {
-	passport.use("jwt_ig_exp", strategyCreator(options_ignaoreExpire));
-	passport.use("jwt", strategyCreator(options_expire));
+export const useJwtStrategy = (
+	passport: any,
+	appDataSouse: DataSource
+) => {
+	passport.use(
+		"jwt_ig_exp",
+		strategyCreator(options_ignaoreExpire, appDataSouse)
+	);
+	passport.use("jwt", strategyCreator(options_expire, appDataSouse));
 };
