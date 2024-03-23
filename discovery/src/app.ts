@@ -4,12 +4,14 @@ import { connectRedis } from "./core/redis.config";
 import { discoveryService } from "./apis/discovery.service";
 import { discoveryRouter } from "./apis/router";
 import { errorHandler } from "./core/errors/errorHandler";
+import { initScheduler } from "./scheduler/scheduler.service";
 
 (() => {
 	const app: Express = express();
 	const port = process.env.PORT || 4231;
 	const redisDB = connectRedis();
 	const service = discoveryService(redisDB);
+	// initScheduler(redisDB).checkServices();
 
 	app.use(express.json());
 	app.use("/api/v1/discovery", discoveryRouter(service));
