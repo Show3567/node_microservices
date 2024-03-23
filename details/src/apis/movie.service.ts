@@ -54,5 +54,14 @@ export const movieService = () => {
 		};
 	};
 
-	return { movieGetReqConvert, getMovieById, getDetails };
+	const checkHealth: RequestHandler = (req, res) => {
+		res.status(200).json({ healthyStatus: "healthy" });
+	};
+
+	return {
+		movieGetReqConvert,
+		getMovieById,
+		getDetails,
+		checkHealth,
+	};
 };

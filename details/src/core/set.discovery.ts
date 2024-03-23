@@ -3,7 +3,8 @@ import "../core/env.config";
 import { getInternalAddress } from "./getCurrentAddress";
 
 export const setAddOnDiscovery = async () => {
-	const url = `${process.env.DISCOVERY_SERVER}/api/v1/discovery`;
+	const url = `${process.env.DISCOVERY_SERVER}/api/v1/discovery/set`;
+
 	const obj = {
 		key: "details",
 		address: {
@@ -11,6 +12,6 @@ export const setAddOnDiscovery = async () => {
 			domain: getInternalAddress(),
 		},
 	};
-	const result = await axios.post(url, obj);
-	console.log(result.data);
+	// const result = await axios.post(url, obj);
+	// console.log(result.data);
 };
