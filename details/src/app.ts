@@ -14,9 +14,7 @@ import { setAddOnDiscovery } from "./core/set.discovery";
 	const port = process.env.PORT || 4231;
 
 	app.use(express.json());
-
 	app.use(cors());
-	app.use(express.json());
 
 	const service = movieService();
 	app.use("/api/v1", movieRouter(service));

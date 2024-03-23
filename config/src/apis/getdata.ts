@@ -5,13 +5,11 @@ import "../core/env.config";
 
 const octokit = new Octokit({ auth: process.env.GIT_TOKEN });
 
-export const fetchConfigFromGitHub = async (
-	filePath: string
-): Promise<any> => {
+export const fetchConfigFromGitHub = async (file: string) => {
 	const response = await octokit.repos.getContent({
 		owner: "show3567",
 		repo: "node-microservices-config",
-		path: filePath,
+		path: file,
 	});
 	if (
 		"content" in response.data &&
@@ -19,8 +17,7 @@ export const fetchConfigFromGitHub = async (
 	) {
 		return Buffer.from(response.data.content, "base64").toString();
 	}
-
-	throw new Error(`${filePath} not found or is not a file`);
+	throw new Error(`${file} not found or is not a file`);
 };
 
 const createLocalFile = (fileName: string, content: string): void => {
