@@ -1,4 +1,5 @@
 import express, { Express } from "express";
+
 import "./core/env.config";
 import { connectRedis } from "./core/redis.config";
 import { discoveryService } from "./apis/discovery.service";

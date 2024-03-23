@@ -1,9 +1,10 @@
 import Redis from "ioredis";
+import "../core/env.config";
 
 export const connectRedis = () => {
 	const redisClient = new Redis({
 		host: "localhost",
-		port: 6379,
+		port: +(process.env.REDIS_PORT as string),
 	});
 
 	// Verify Redis connection
