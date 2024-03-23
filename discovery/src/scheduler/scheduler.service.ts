@@ -1,5 +1,6 @@
 import Redis from "ioredis";
 import axios from "axios";
+import schedule from "node-schedule";
 import { ServiceInstanceDB } from "../apis/dto/setServer.dto";
 
 export const initScheduler = (redisClient: Redis) => {
@@ -57,7 +58,10 @@ export const initScheduler = (redisClient: Redis) => {
 		});
 	};
 
-	return { checkServices };
-};
+	const triggerScheduler = (timerStr: string) => {
+		const job = schedule.scheduleJob(timerStr, checkServices);
+		return job;
+	};
 
-// todo:
+	return { triggerScheduler };
+};

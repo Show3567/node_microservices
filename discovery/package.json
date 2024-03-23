@@ -12,6 +12,7 @@
 	"license": "ISC",
 	"dependencies": {
 		"@types/cors": "^2.8.17",
+		"@types/node-schedule": "^2.1.6",
 		"axios": "^1.6.8",
 		"class-transformer": "^0.5.1",
 		"class-validator": "^0.14.1",

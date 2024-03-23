@@ -11,7 +11,8 @@ import { initScheduler } from "./scheduler/scheduler.service";
 	const port = process.env.PORT || 4231;
 	const redisDB = connectRedis();
 	const service = discoveryService(redisDB);
-	initScheduler(redisDB).checkServices();
+	// * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ the scheduler can be terminated by job.cancel();
+	const job = initScheduler(redisDB).triggerScheduler("*/30 * * * *");
 
 	app.use(express.json());
 	app.use("/api/v1/discovery", discoveryRouter(service));
@@ -99,6 +100,6 @@ import { initScheduler } from "./scheduler/scheduler.service";
   & install redis on nodejs;
   $ npm i ioredis
 
-  & add scheduler to check services health;
-  $ npm install node-schedule
+  & add scheduler to check services health; we can select node-schedule, cron, bull, agenda...
+  $ npm install node-schedule @types/node-schedule
 */
