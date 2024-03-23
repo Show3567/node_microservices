@@ -8,7 +8,7 @@ import { movieRouter } from "./apis/router";
 import { setAddOnDiscovery } from "./core/set.discovery";
 
 (async () => {
-	await getConfigFromServer();
+	// await getConfigFromServer();
 	await setAddOnDiscovery();
 	const app: Express = express();
 	const port = process.env.PORT || 4231;

@@ -11,7 +11,7 @@ import { initScheduler } from "./scheduler/scheduler.service";
 	const port = process.env.PORT || 4231;
 	const redisDB = connectRedis();
 	const service = discoveryService(redisDB);
-	// initScheduler(redisDB).checkServices();
+	initScheduler(redisDB).checkServices();
 
 	app.use(express.json());
 	app.use("/api/v1/discovery", discoveryRouter(service));
