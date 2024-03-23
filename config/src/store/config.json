@@ -2,7 +2,7 @@
 	"JWT_SECRET": "C>WI(_k<KmJ5H][X1j43#Oo0EIMUIf=D~9-h{yvYTQ(E#3%Fiz?rd:kFHfCvn",
 	"MODB_URL": "mongodb+srv://antraAngular:jVoARhjqNU6GtZQG@cluster0.uqd3b.mongodb.net/auth",
 
-	"AUTH_SERVER": "http://localhost:4233",
+	"AUTH_SERVER": "http://localhost:4238",
 	"CONFIG_SERVER": "http://localhost:4229",
 	"DETAIL_SERVER": "http://localhost:4232",
 

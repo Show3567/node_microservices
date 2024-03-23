@@ -57,6 +57,7 @@ export const initScheduler = (redisClient: Redis) => {
 				}
 			}
 		});
+		console.log("~~~~~trigger~~~~~");
 	};
 
 	const triggerScheduler = (timerStr: string) => {
