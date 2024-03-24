@@ -13,7 +13,7 @@ import { initScheduler } from "./scheduler/scheduler.service";
 	const redisDB = connectRedis();
 	const service = discoveryService(redisDB);
 	// * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ the scheduler can be terminated by job.cancel();
-	// const job = initScheduler(redisDB).triggerScheduler("*/30 * * * *");
+	const job = initScheduler(redisDB).triggerScheduler("*/30 * * * *");
 	// const job = initScheduler(redisDB).triggerScheduler("*/1 * * * *");
 
 	app.use(express.json());
