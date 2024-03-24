@@ -11,7 +11,7 @@ export const setAddOnDiscovery = async () => {
 		service: {
 			endpoint: `http://localhost:${process.env.PORT}`,
 			healthStatus: "healthy",
-			ttl: 3600,
+			ttl: 3600 * 24 + 300,
 		},
 	};
 	const result = await axios.post(url, obj);

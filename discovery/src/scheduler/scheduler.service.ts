@@ -51,13 +51,12 @@ export const initScheduler = (redisClient: Redis) => {
 							},
 						} as ServiceInstanceDB),
 						"EX",
-						data.ttl
+						data.ttl + 300 // set the exist time + 5mins
 					);
 					console.log("set successful!");
 				}
 			}
 		});
-		console.log("~~~~~trigger~~~~~");
 	};
 
 	const triggerScheduler = (timerStr: string) => {
