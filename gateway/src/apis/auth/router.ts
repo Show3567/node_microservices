@@ -1,22 +1,25 @@
-import express from "express";
-import {
-	checkEmail,
-	deleteUserById,
-	getUsers,
-	refreshToken,
+import express, { RequestHandler } from "express";
+
+export const userRouters = ({
 	signIn,
 	signUp,
 	updateUser,
-} from "./auth.service";
+	deleteUserById,
+	refreshToken,
+	getUsers,
+	checkEmail,
+}: {
+	[key: string]: RequestHandler;
+}) => {
+	const router = express.Router();
 
-const userRouters = express.Router();
+	router.route("/users").get(getUsers);
+	router.route("/signin").post(signIn);
+	router.route("/signup").post(signUp);
+	router.route("/check-email").post(checkEmail);
+	router.route("/userupdate").patch(updateUser);
+	router.route("/refresh-token").get(refreshToken);
+	router.route("/users/:id").delete(deleteUserById);
 
-userRouters.route("/users").get(getUsers);
-userRouters.route("/signin").post(signIn);
-userRouters.route("/signup").post(signUp);
-userRouters.route("/check-email").post(checkEmail);
-userRouters.route("/userupdate").patch(updateUser);
-userRouters.route("/refresh-token").get(refreshToken);
-userRouters.route("/users/:id").delete(deleteUserById);
-
-export default userRouters;
+	return router;
+};

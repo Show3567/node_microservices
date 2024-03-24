@@ -1,48 +1,49 @@
-import express from "express";
+import express, { RequestHandler } from "express";
 import passport from "passport";
-import {
-	getDetails,
-	getMovieById,
+
+export const movieRouter = ({
 	movieGetReqConvert,
-} from "./movie.service";
+	getMovieById,
+	getDetails,
+}: any) => {
+	const router = express.Router();
 
-const movieRouter = express.Router();
+	router
+		.route("/discover/movie")
+		.get(
+			passport.authenticate("jwt", { session: false }),
+			movieGetReqConvert("discover/movie")
+		);
+	router
+		.route("/search/movie")
+		.get(
+			passport.authenticate("jwt", { session: false }),
+			movieGetReqConvert("search/movie")
+		);
+	router
+		.route("/movie/:id")
+		.get(
+			passport.authenticate("jwt", { session: false }),
+			getMovieById
+		);
+	router
+		.route("/movie/:id/credits")
+		.get(
+			passport.authenticate("jwt", { session: false }),
+			getDetails("credits")
+		);
+	router
+		.route("/movie/:id/images")
+		.get(
+			passport.authenticate("jwt", { session: false }),
+			getDetails("images")
+		);
+	router
+		.route("/movie/:id/videos")
+		.get(
+			passport.authenticate("jwt", { session: false }),
+			getDetails("videos")
+		);
 
-movieRouter
-	.route("/discover/movie")
-	.get(
-		passport.authenticate("jwt", { session: false }),
-		movieGetReqConvert("discover/movie")
-	);
-movieRouter
-	.route("/search/movie")
-	.get(
-		passport.authenticate("jwt", { session: false }),
-		movieGetReqConvert("search/movie")
-	);
-movieRouter
-	.route("/movie/:id")
-	.get(
-		passport.authenticate("jwt", { session: false }),
-		getMovieById
-	);
-movieRouter
-	.route("/movie/:id/credits")
-	.get(
-		passport.authenticate("jwt", { session: false }),
-		getDetails("credits")
-	);
-movieRouter
-	.route("/movie/:id/images")
-	.get(
-		passport.authenticate("jwt", { session: false }),
-		getDetails("images")
-	);
-movieRouter
-	.route("/movie/:id/videos")
-	.get(
-		passport.authenticate("jwt", { session: false }),
-		getDetails("videos")
-	);
-
-export default movieRouter;
+	return router;
+};

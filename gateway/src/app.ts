@@ -1,23 +1,31 @@
 import express, { Express } from "express";
 import cors from "cors";
-import { errorHandler } from "./core/errors/errorHandler";
 import "./core/env.config";
-import userRouters from "./apis/auth/router";
 import { authConfig } from "./core/auth.config";
-import movieRouter from "./apis/movie/router";
+
 import { getConfigFromServer } from "./config/getConfig";
+import { initScheduler } from "./scheduler/scheduler.service";
+import { AuthService } from "./apis/auth/auth.service";
+import { userRouters } from "./apis/auth/router";
+import { MovieService } from "./apis/movie/movie.service";
+import { movieRouter } from "./apis/movie/router";
+import { errorHandler } from "./core/errors/errorHandler";
 
 (async () => {
 	await getConfigFromServer();
 	const app: Express = express();
 	const port = process.env.PORT || 4231;
 	const auth = authConfig(app);
+	const scheduler = initScheduler();
+	await scheduler.getUrls("details");
 
 	app.use(express.json());
 	app.use(cors());
 
-	app.use("/api/v1/auth", userRouters);
-	app.use("/api/v1/", movieRouter);
+	const authservice = AuthService();
+	const movieservice = MovieService();
+	app.use("/api/v1/auth", userRouters(authservice));
+	app.use("/api/v1/", movieRouter(movieservice));
 	app.use(errorHandler);
 
 	app.listen(port, () => {

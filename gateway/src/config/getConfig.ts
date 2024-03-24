@@ -3,7 +3,7 @@ import fs from "fs";
 import path from "path";
 import "../core/env.config";
 
-const configList = ["JWT_SECRET"];
+const configList = ["JWT_SECRET", "AUTH_SERVER", "DISCOVERY_SERVER"];
 const configServer = process.env.CONFIG_SERVER;
 
 const downloadFile = async (url: string, fileName: string) => {
@@ -41,6 +41,7 @@ const createLocalFile = (fileName: string, content: string): void => {
 	}
 	fs.writeFileSync(filePath, content, "utf8");
 };
+
 export const getConfigData = () => {
 	const rawData = fs.readFileSync(
 		path.join(__dirname, "./", "config.json"),
@@ -62,7 +63,6 @@ const getConfig = async () => {
 };
 const getKey = async (key: "priv" | "pub") => {
 	const fileUrl = `${configServer}/api/v1/config?key=${key}`; // URL to your API endpoint
-	// const savePath = path.join(__dirname, );
 	await downloadFile(fileUrl, `id_rsa_${key}.pem`);
 };
 

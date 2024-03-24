@@ -51,7 +51,8 @@ export const discoveryService = (redisClient: Redis) => {
 				[key]: JSON.parse(cachedData),
 			});
 		} else {
-			res.status(404).json({ message: "Cannot found this Server!" });
+			res.status(200).json({ message: "Cannot found this Server!" });
+			// res.status(404).json({ message: "Cannot found this Server!" });
 		}
 	};
 
