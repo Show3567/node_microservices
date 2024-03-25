@@ -1,6 +1,7 @@
 import { RequestHandler } from "express";
 import { Redis } from "ioredis";
 import { ServiceInstanceDB } from "./dto/setServer.dto";
+import logger, { loggerErr, loggerInfo } from "../core/logger.config";
 
 const addAdd = (orgarr: string[], address: string) => {
 	return orgarr.includes(address) ? orgarr : [...orgarr, address];
@@ -17,7 +18,6 @@ export const discoveryService = (redisClient: Redis) => {
 
 		if (cachedData) {
 			const data: ServiceInstanceDB = JSON.parse(cachedData);
-			console.log("~~~~~~~~~~~~", data);
 			obj = {
 				endpoints: addAdd(data.endpoints, endpoint),
 				healthStatus,
@@ -40,6 +40,7 @@ export const discoveryService = (redisClient: Redis) => {
 		}
 		await redisClient.set(key, JSON.stringify(obj), "EX", ttl);
 
+		logger.info(loggerInfo(`setServerAdd`, 201, { [key]: obj }));
 		res.status(201).json({ [key]: obj });
 	};
 
@@ -47,12 +48,18 @@ export const discoveryService = (redisClient: Redis) => {
 		const key = req.params.key;
 		const cachedData = await redisClient.get(key);
 		if (cachedData) {
-			res.status(200).json({
-				[key]: JSON.parse(cachedData),
-			});
+			const resultObj = JSON.parse(cachedData);
+			logger.info(
+				loggerInfo(`getServerAdd`, 201, { [key]: resultObj })
+			);
+			res.status(200).json({ [key]: resultObj });
 		} else {
-			res.status(200).json({ message: "Cannot found this Server!" });
-			// res.status(404).json({ message: "Cannot found this Server!" });
+			logger.info(
+				loggerInfo(`getServerAdd`, 208, {
+					message: "Cannot found this Server!",
+				})
+			);
+			res.status(208).json({ message: "Cannot found this Server!" });
 		}
 	};
 
@@ -78,9 +85,17 @@ export const discoveryService = (redisClient: Redis) => {
 					redisClient.get(key).then((value) => ({ key, value }))
 				)
 			);
+			logger.info(loggerInfo(`checkAllData`, 201, data));
 			res.status(200).json(data);
 		} catch (error) {
 			console.error("Error fetching data from Redis:", error);
+			logger.error(
+				loggerErr(
+					`checkAllData`,
+					500,
+					"Error fetching data from Redis"
+				)
+			);
 			res.status(500).send("Error fetching data from Redis");
 		}
 	};

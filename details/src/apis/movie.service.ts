@@ -55,6 +55,9 @@ export const movieService = () => {
 	};
 
 	const checkHealth: RequestHandler = (req, res) => {
+		logger.info(
+			loggerInfo(`checkHealth`, 201, { healthyStatus: "healthy" })
+		);
 		res.status(200).json({ healthyStatus: "healthy" });
 	};
 

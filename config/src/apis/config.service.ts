@@ -2,6 +2,7 @@ import { RequestHandler } from "express";
 import fs from "fs";
 import path from "path";
 import { fetchConfigFromGitHub } from "./getdata";
+import logger, { loggerInfo } from "../core/logger.config";
 
 const getConfigData = () => {
 	const rawData = fs.readFileSync(
@@ -29,6 +30,7 @@ export const getConfig: RequestHandler = async (req, res) => {
 		};
 	}, {});
 
+	logger.info(loggerInfo("signin", 201, result));
 	res.status(201).json(result);
 	// } else {
 	// 	res.status(404).json({ message: "Cannot found config file" });

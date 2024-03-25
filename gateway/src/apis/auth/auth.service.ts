@@ -1,4 +1,4 @@
-import { RequestHandler } from "express";
+import { RequestHandler, Request, Response } from "express";
 import "../../core/env.config";
 import axios from "axios";
 import { getConfigData } from "../../config/getConfig";
@@ -64,13 +64,19 @@ export const AuthService = () => {
 		res.status(result.status).json(result.data);
 	};
 
-	const getUsers: RequestHandler = async (req, res) => {
+	const getUsers: RequestHandler = async (req, res, next) => {
 		const result = await axios.post(
 			`${AuthServerPath}/api/v1/auth/users`,
 			req.body,
 			{ headers: { ...req.headers } }
 		);
 		res.status(result.status).json(result.data);
+	};
+
+	const issueResult = (result: any): RequestHandler => {
+		return (req: Request, res: Response) => {
+			res.status(result.status).json(result.data);
+		};
 	};
 
 	return {
@@ -81,5 +87,6 @@ export const AuthService = () => {
 		refreshToken,
 		getUsers,
 		checkEmail,
+		issueResult,
 	};
 };
