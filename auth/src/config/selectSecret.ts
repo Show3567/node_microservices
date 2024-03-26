@@ -11,6 +11,7 @@ const fileExistsInFolder = (keyName: string) => {
 export const selectSecret = (keyName: "priv" | "pub") => {
 	const config = getConfigData();
 	const fileExist = fileExistsInFolder(keyName);
+
 	const algorithm = fileExist ? "RS256" : "HS256";
 	const secret = fileExist
 		? fs.readFileSync(
