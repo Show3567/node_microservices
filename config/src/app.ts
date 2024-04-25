@@ -90,4 +90,7 @@ import { errorHandler } from "./core/errors/errorHandler";
   $ docker stop <container-id-or-name>
   $ docker rm <container-id-or-name> // optional, this will remove the image;
   $ docker run -p 8800:3344 -d <your-image-name> // recreate the image;
+
+  & add test;
+  $ npm install --save-dev jest @types/jest ts-jest
 */
