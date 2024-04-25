@@ -3,7 +3,7 @@ import path from "path";
 import fs from "fs";
 import "../core/env.config";
 
-const octokit = new Octokit({ auth: process.env.GIT_TOKEN });
+const octokit = new Octokit({ auth: process.env.G_TOKEN });
 
 export const fetchConfigFromGitHub = async (file: string) => {
 	const response = await octokit.repos.getContent({
