@@ -1,6 +1,6 @@
 import express, { Express } from "express";
 import "./core/env.config";
-import "./apis/getdata";
+// import "./apis/getdata";
 import cors from "cors";
 import configRouter from "./apis/router";
 import { errorHandler } from "./core/errors/errorHandler";

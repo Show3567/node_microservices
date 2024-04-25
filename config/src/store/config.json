@@ -5,6 +5,7 @@
 	"AUTH_SERVER": "http://localhost:4238",
 	"CONFIG_SERVER": "http://localhost:4229",
 	"DETAIL_SERVER": "http://localhost:4232",
+	"DISCOVERY_SERVER": "http://localhost:4233",
 
 	"TMDB_KEY": "ac7e1f44cec0dd6e260391374208b0cc",
 	"TMDB_BASE_URL": "https://api.themoviedb.org/3",
