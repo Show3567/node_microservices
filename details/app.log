@@ -4,3 +4,4 @@
 {"level":"info","message":{"method":"getMovieById","res":{},"status":200},"timestamp":"2024-03-22T03:40:27.153Z"}
 {"level":"info","message":{"method":"checkHealth","res":{"healthyStatus":"healthy"},"status":201},"timestamp":"2024-04-25T20:00:00.214Z"}
 {"level":"info","message":{"method":"checkHealth","res":{"healthyStatus":"healthy"},"status":201},"timestamp":"2024-04-30T19:30:00.090Z"}
+{"level":"info","message":{"method":"checkHealth","res":{"healthyStatus":"healthy"},"status":201},"timestamp":"2024-05-12T14:00:00.025Z"}
