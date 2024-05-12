@@ -6,3 +6,4 @@
 {"level":"info","message":{"method":"getServerAdd","res":{"message":"Cannot found this Server!"},"status":208},"timestamp":"2024-04-25T19:35:30.654Z"}
 {"level":"info","message":{"method":"setServerAdd","res":{"details":{"endpoints":["http://localhost:4232"],"healthStatus":"healthy","timestamps":{"created":"1714075091400","updated":"1714075091400"},"ttl":86700}},"status":201},"timestamp":"2024-04-25T19:58:11.425Z"}
 {"level":"info","message":{"method":"getServerAdd","res":{"details":{"endpoints":["http://localhost:4232"],"healthStatus":"healthy","timestamps":{"created":"1714075091400","updated":"1714075091400"},"ttl":86700}},"status":201},"timestamp":"2024-04-25T19:58:24.092Z"}
+{"level":"info","message":{"method":"setServerAdd","res":{"details":{"endpoints":["http://localhost:4232"],"healthStatus":"healthy","timestamps":{"created":"1714505307476","updated":"1714505307476"},"ttl":86700}},"status":201},"timestamp":"2024-04-30T19:28:27.498Z"}
