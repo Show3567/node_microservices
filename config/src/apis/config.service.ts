@@ -40,6 +40,12 @@ export const getConfig: RequestHandler = async (req, res) => {
 export const getKey: RequestHandler = async (req, res) => {
 	const { key } = req.query; // key: 'priv' | 'pub';
 
-	const keyFile = await fetchConfigFromGitHub(`id_rsa_${key}.pem`);
-	res.send(keyFile);
+	// const keyFile = await fetchConfigFromGitHub(`id_rsa_${key}.pem`);
+
+	const rawData = fs.readFileSync(
+		path.join(__dirname, "../store", `id_rsa_${key}.pem`),
+		"utf8"
+	);
+
+	res.send(JSON.parse(rawData));
 };
